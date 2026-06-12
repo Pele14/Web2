@@ -1,0 +1,23 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build output
+bin/
+obj/
+
+# Service Fabric
+pkg/
+*.sfpkg
+
+# Node / React
+node_modules/
+build/
+.env
+
+# SQL
+*.mdf
+*.ldf
+
+packages/
