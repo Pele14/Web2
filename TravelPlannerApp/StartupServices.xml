@@ -6,9 +6,6 @@
     <Parameter Name="TravelService_PartitionCount" DefaultValue="1" />
     <Parameter Name="TravelService_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="UserService_InstanceCount" DefaultValue="-1" />
-    <Parameter Name="TravelService_MinReplicaSetSize" DefaultValue="3" />
-    <Parameter Name="TravelService_PartitionCount" DefaultValue="1" />
-    <Parameter Name="TravelService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <Services>
     <!-- The section below creates instances of service types, when an instance of this 
@@ -30,11 +27,6 @@
       <StatelessService ServiceTypeName="UserServiceType" InstanceCount="[UserService_InstanceCount]">
         <SingletonPartition />
       </StatelessService>
-    </Service>
-    <Service Name="TravelService" ServicePackageActivationMode="ExclusiveProcess">
-      <StatefulService ServiceTypeName="TravelServiceType" TargetReplicaSetSize="[TravelService_TargetReplicaSetSize]" MinReplicaSetSize="[TravelService_MinReplicaSetSize]">
-        <UniformInt64Partition PartitionCount="[TravelService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-      </StatefulService>
     </Service>
   </Services>
 </StartupServicesManifest>
