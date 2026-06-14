@@ -1,4 +1,4 @@
-import axios from 'axios';
+ï»¿import axios from 'axios';
 
 const createClient = (baseURL, isTravelService = false) => {
     const client = axios.create({ baseURL });
@@ -8,7 +8,7 @@ const createClient = (baseURL, isTravelService = false) => {
         const token = localStorage.getItem('token');
         if (token) config.headers.Authorization = `Bearer ${token}`;
 
-        // Ako je u pitanju TravelService, nakaèi i X-Share-Token ako postoji
+        // Ako je u pitanju TravelService, nakaÄi i X-Share-Token ako postoji
         if (isTravelService) {
             const shareToken = localStorage.getItem('shareToken');
             if (shareToken) config.headers['X-Share-Token'] = shareToken;
@@ -24,11 +24,11 @@ const createClient = (baseURL, isTravelService = false) => {
             const requestUrl = err.config?.url ?? '';
             const isAuthRequest = requestUrl.includes('/api/auth/login') || requestUrl.includes('/api/auth/register');
 
-            // Ako je token istekao, briši sve i šalji na login
+            // Ako je token istekao, briÅ¡i sve i Å¡alji na login
             if (status === 401 && !isAuthRequest) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
-                localStorage.removeItem('shareToken'); // Èistimo i share token
+                localStorage.removeItem('shareToken'); // ÄŒistimo i share token
                 window.location.href = '/login';
             }
             return Promise.reject(err);
@@ -38,7 +38,8 @@ const createClient = (baseURL, isTravelService = false) => {
     return client;
 };
 
-// Na samom dnu fajla gde eksportuješ klijente:
-export const userClient = createClient(import.meta.env.VITE_USER_SERVICE_URL);
-export const travelClient = createClient(import.meta.env.VITE_TRAVEL_SERVICE_URL, true);
-export const expenseClient = createClient(import.meta.env.VITE_EXPENSE_SERVICE_URL);
+// Na samom dnu src/Services/apiClient.js (ili .jsx) zamenite eksporte sa ovim:
+
+export const userClient = createClient('http://localhost:5001');   // UserService port
+export const travelClient = createClient('http://localhost:5002', true); // TravelService port
+export const expenseClient = createClient('http://localhost:5003'); // ExpenseService port
