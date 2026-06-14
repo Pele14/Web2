@@ -1,31 +1,28 @@
+using ExpenseService;
 using Microsoft.ServiceFabric.Services.Runtime;
 using System;
 using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace TravelService
 {
     internal static class Program
     {
         /// <summary>
-        /// This is the entry point of the service host process.
+        /// Ovo je ulazna taèka procesa hosta servisa.
         /// </summary>
         private static void Main()
         {
             try
             {
-                // The ServiceManifest.XML file defines one or more service type names.
-                // Registering a service maps a service type name to a .NET type.
-                // When Service Fabric creates an instance of this service type,
-                // an instance of the class is created in this host process.
-
+                // Registracija servisa mapira ime tipa servisa iz ServiceManifest.xml na .NET tip.
+                // Kada Service Fabric kreira instancu ovog tipa, instanca klase se kreira u ovom procesu.
                 ServiceRuntime.RegisterServiceAsync("TravelServiceType",
                     context => new TravelService(context)).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(TravelService).Name);
 
-                // Prevents this host process from terminating so services keeps running. 
+                // Spreèava gašenje procesa hosta kako bi servisi nastavili da rade.
                 Thread.Sleep(Timeout.Infinite);
             }
             catch (Exception e)
