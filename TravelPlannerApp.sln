@@ -16,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dokumentacija", "Dokumentacija", "{1F6F9BCB-3BE2-43A3-9C95-A4CA2F8AD9B5}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\Dokumentacija.png = ..\..\Dokumentacija.png
+		README.md = README.md
 		..\..\UseCase1.png = ..\..\UseCase1.png
 	EndProjectSection
 EndProject
