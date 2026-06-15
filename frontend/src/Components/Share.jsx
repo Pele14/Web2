@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { shareService } from '../Services';
-import { Button, Modal, FormField, Select, ConfirmDialog } from './common';
+import { Button, Modal, FormField, ConfirmDialog } from './common';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 
@@ -12,7 +12,7 @@ export function ShareSection({ planId }) {
     const [showCreate, setShowCreate] = useState(false);
     const [creating, setCreating] = useState(false);
     const [deleting, setDeleting] = useState(null);
-    const [form, setForm] = useState({ accessType: 'View', expiryDays: '' });
+    const [form, setForm] = useState({ expiryDays: '' });
     const [selectedQR, setSelectedQR] = useState(null);
 
     useEffect(() => { loadTokens(); }, [planId]);
@@ -31,13 +31,13 @@ export function ShareSection({ planId }) {
         setCreating(true);
         try {
             const { data } = await shareService.create(planId, {
-                accessType: form.accessType,
+                accessType: 'View', // Fiksirano na View, nema više izbora
                 expiryDays: form.expiryDays ? Number(form.expiryDays) : null,
             });
             setTokens(prev => [...prev, data]);
-            toast.success('Link za dijeljenje kreiran');
+            toast.success('Link za deljenje kreiran');
             setShowCreate(false);
-            setForm({ accessType: 'View', expiryDays: '' });
+            setForm({ expiryDays: '' });
         } catch {
             toast.error('Greška pri kreiranju linka');
         } finally {
@@ -60,8 +60,6 @@ export function ShareSection({ planId }) {
         navigator.clipboard.writeText(url).then(() => toast.success('Link kopiran!'));
     };
 
-    const accessLabel = (t) => t === 'View' ? '👁 Pregled' : '✏️ Uređivanje';
-
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -72,7 +70,7 @@ export function ShareSection({ planId }) {
             {tokens.length === 0 ? (
                 <div style={{ textAlign: 'center', padding: '32px 20px', background: '#f9fafb', borderRadius: 12, border: '1px dashed #d1d5db' }}>
                     <div style={{ fontSize: 32, marginBottom: 8 }}>🔗</div>
-                    <p style={{ color: '#6b7280', fontSize: 14, margin: '0 0 16px' }}>Dijelite plan putovanja sa drugima putem QR koda ili linka</p>
+                    <p style={{ color: '#6b7280', fontSize: 14, margin: '0 0 16px' }}>Dijelite plan putovanja sa drugima putem QR koda ili linka za pregled</p>
                     <Button size="sm" onClick={() => setShowCreate(true)}>Kreiraj prvi link</Button>
                 </div>
             ) : (
@@ -82,7 +80,7 @@ export function ShareSection({ planId }) {
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
                                 <div style={{ flex: 1 }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                                        <span style={{ fontWeight: 700, fontSize: 14 }}>{accessLabel(token.accessType)}</span>
+                                        <span style={{ fontWeight: 700, fontSize: 14 }}>👁️ Link za pregled</span>
                                         {token.expiresAt && (
                                             <span style={{ fontSize: 11, color: '#6b7280', background: '#f3f4f6', padding: '2px 8px', borderRadius: 4 }}>
                                                 Ističe: {format(new Date(token.expiresAt), 'dd.MM.yyyy')}
@@ -107,19 +105,13 @@ export function ShareSection({ planId }) {
             {/* Create Modal */}
             <Modal isOpen={showCreate} onClose={() => setShowCreate(false)} title="Kreiraj link za deljenje">
                 <form onSubmit={handleCreate}>
-                    <FormField label="Nivo pristupa">
-                        <Select value={form.accessType} onChange={e => setForm(f => ({ ...f, accessType: e.target.value }))}>
-                            <option value="View">Pregled (VIEW) – može samo gledati</option>
-                            <option value="Edit">Uređivanje (EDIT) – može menjati podatke</option>
-                        </Select>
-                    </FormField>
                     <FormField label="Isticanje linka (u danima, prazno = ne ističe)">
                         <input type="number" value={form.expiryDays}
-                            onChange={e => setForm(f => ({ ...f, expiryDays: e.target.value }))}
+                            onChange={e => setForm({ expiryDays: e.target.value })}
                             placeholder="npr. 7" min="1"
                             style={{ width: '100%', padding: '9px 12px', border: '1px solid #d1d5db', borderRadius: 8, fontSize: 14, boxSizing: 'border-box' }} />
                     </FormField>
-                    <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 8 }}>
+                    <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 16 }}>
                         <Button type="button" variant="ghost" onClick={() => setShowCreate(false)}>Odustani</Button>
                         <Button type="submit" disabled={creating}>{creating ? 'Kreiranje...' : 'Kreiraj link'}</Button>
                     </div>
@@ -131,7 +123,7 @@ export function ShareSection({ planId }) {
                 {selectedQR && (
                     <div style={{ textAlign: 'center' }}>
                         <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 20 }}>
-                            Skenirajte QR kod ili koristite link ispod za pristup putovanju
+                            Skenirajte QR kod ili koristite link ispod za pristup pregledu putovanja
                         </p>
                         <div style={{ display: 'inline-block', padding: 16, background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, marginBottom: 20 }}>
                             <QRCodeSVG value={selectedQR.shareUrl} size={200} level="Q" includeMargin />
@@ -142,10 +134,11 @@ export function ShareSection({ planId }) {
                         <Button onClick={() => copyLink(selectedQR.shareUrl)} style={{ width: '100%' }}>
                             📋 Kopiraj link
                         </Button>
-                        <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 12 }}>
-                            Pristup: <strong>{accessLabel(selectedQR.accessType)}</strong>
-                            {selectedQR.expiresAt && ` · Ističe: ${format(new Date(selectedQR.expiresAt), 'dd.MM.yyyy')}`}
-                        </p>
+                        {selectedQR.expiresAt && (
+                            <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 12 }}>
+                                Ističe: <strong>{format(new Date(selectedQR.expiresAt), 'dd.MM.yyyy')}</strong>
+                            </p>
+                        )}
                     </div>
                 )}
             </Modal>
