@@ -65,7 +65,7 @@ export function ShareSection({ planId }) {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>🔗 Dijeljenje plana</h3>
+                <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>🔗 Deljenje plana</h3>
                 <Button size="sm" onClick={() => setShowCreate(true)}>+ Novi link</Button>
             </div>
 
@@ -105,12 +105,12 @@ export function ShareSection({ planId }) {
             )}
 
             {/* Create Modal */}
-            <Modal isOpen={showCreate} onClose={() => setShowCreate(false)} title="Kreiraj link za dijeljenje">
+            <Modal isOpen={showCreate} onClose={() => setShowCreate(false)} title="Kreiraj link za deljenje">
                 <form onSubmit={handleCreate}>
                     <FormField label="Nivo pristupa">
                         <Select value={form.accessType} onChange={e => setForm(f => ({ ...f, accessType: e.target.value }))}>
                             <option value="View">Pregled (VIEW) – može samo gledati</option>
-                            <option value="Edit">Uređivanje (EDIT) – može mijenjati podatke</option>
+                            <option value="Edit">Uređivanje (EDIT) – može menjati podatke</option>
                         </Select>
                     </FormField>
                     <FormField label="Isticanje linka (u danima, prazno = ne ističe)">

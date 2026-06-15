@@ -11,9 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelService", "TravelServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseService", "ExpenseService\ExpenseService.csproj", "{C74CC1D5-C42D-473C-9930-BE8027FCF803}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{3BC9637A-4AB1-4D1E-B486-71737CF52EBE}"
-EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "frontend", "Frontend\frontend.esproj", "{D28F105D-DBBA-4706-8C88-DDAC0C00E35E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dokumentacija", "Dokumentacija", "{1F6F9BCB-3BE2-43A3-9C95-A4CA2F8AD9B5}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Dokumentacija.png = ..\..\Dokumentacija.png
+		..\..\UseCase1.png = ..\..\UseCase1.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,14 +63,6 @@ Global
 		{C74CC1D5-C42D-473C-9930-BE8027FCF803}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C74CC1D5-C42D-473C-9930-BE8027FCF803}.Release|x64.ActiveCfg = Release|Any CPU
 		{C74CC1D5-C42D-473C-9930-BE8027FCF803}.Release|x64.Build.0 = Release|Any CPU
-		{3BC9637A-4AB1-4D1E-B486-71737CF52EBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BC9637A-4AB1-4D1E-B486-71737CF52EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BC9637A-4AB1-4D1E-B486-71737CF52EBE}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{3BC9637A-4AB1-4D1E-B486-71737CF52EBE}.Debug|x64.Build.0 = Debug|Any CPU
-		{3BC9637A-4AB1-4D1E-B486-71737CF52EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BC9637A-4AB1-4D1E-B486-71737CF52EBE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3BC9637A-4AB1-4D1E-B486-71737CF52EBE}.Release|x64.ActiveCfg = Release|Any CPU
-		{3BC9637A-4AB1-4D1E-B486-71737CF52EBE}.Release|x64.Build.0 = Release|Any CPU
 		{D28F105D-DBBA-4706-8C88-DDAC0C00E35E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D28F105D-DBBA-4706-8C88-DDAC0C00E35E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D28F105D-DBBA-4706-8C88-DDAC0C00E35E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU

@@ -24,7 +24,7 @@ export function TripsPage() {
     const [showCreate, setShowCreate] = useState(false);
     const [createLoading, setCreateLoading] = useState(false);
 
-    useEffect(() => { fetchTrips(); }, );
+    useEffect(() => { fetchTrips(); }, []);
 
     const handleCreate = async (data) => {
         setCreateLoading(true);
@@ -46,7 +46,7 @@ export function TripsPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
                 <div>
                     <h1 style={{ margin: 0, fontSize: 28, fontWeight: 800 }}>Moja putovanja</h1>
-                    <p style={{ color: '#6b7280', margin: '4px 0 0', fontSize: 14 }}>{trips.length} {trips.length === 1 ? 'putovanje' : 'putovanj'}</p>
+                    <p style={{ color: '#6b7280', margin: '4px 0 0', fontSize: 14 }}>{trips.length} {trips.length === 1 ? 'putovanje' : 'putovanje'}</p>
                 </div>
                 <Button onClick={() => setShowCreate(true)} size="lg">+ Novo putovanje</Button>
             </div>
@@ -67,7 +67,7 @@ const TABS = [
     { id: 'activities', label: '🗓 Aktivnosti' },
     { id: 'expenses', label: '💶 Troškovi' },
     { id: 'checklist', label: '✅ Checklista' },
-    { id: 'share', label: '🔗 Dijeljenje' },
+    { id: 'share', label: '🔗 Deljenje' },
 ];
 
 export function TripDetailPage() {
@@ -175,7 +175,7 @@ export function SharedPlanPage() {
         <div style={{ ...pageStyle, textAlign: 'center', paddingTop: 80 }}>
             <div style={{ fontSize: 48, marginBottom: 16 }}>🔒</div>
             <h2>Link nije validan ili je istekao</h2>
-            <p style={{ color: '#6b7280' }}>Provjerite link ili kontaktirajte osobu koja vam je podijelila plan.</p>
+            <p style={{ color: '#6b7280' }}>Proverite link ili kontaktirajte osobu koja vam je podelila plan.</p>
         </div>
     );
 
@@ -292,7 +292,7 @@ export function ProfilePage() {
                     <div style={{ marginBottom: 16 }}>
                         <label style={{ display: 'block', marginBottom: 6, fontSize: 13, fontWeight: 600, color: '#374151' }}>Email</label>
                         <input value={form.email} disabled style={{ ...inputS, background: '#f9fafb', color: '#9ca3af' }} />
-                        <p style={{ fontSize: 11, color: '#9ca3af', margin: '4px 0 0' }}>Email ne može biti promijenjen</p>
+                        <p style={{ fontSize: 11, color: '#9ca3af', margin: '4px 0 0' }}>Email ne može biti promenjen</p>
                     </div>
                     <div style={{ marginBottom: 16 }}>
                         <label style={{ display: 'block', marginBottom: 6, fontSize: 13, fontWeight: 600, color: '#374151' }}>Nova lozinka (opciono)</label>
